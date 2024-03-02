@@ -10,7 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_02_225607) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_02_231534) do
+  create_table "plates", primary_key: "plate_barcode", id: :string, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "wells", primary_key: ["row", "column"], force: :cascade do |t|
     t.integer "row"
     t.string "column"
