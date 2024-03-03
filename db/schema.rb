@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_03_003534) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_03_004706) do
   create_table "barcodes", primary_key: "barcode", id: :string, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -23,6 +23,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_03_003534) do
     t.index ["barcode"], name: "index_plates_on_barcode"
   end
 
+  create_table "tubes", primary_key: "tube_barcode", id: :string, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "barcode"
+    t.string "plate_barcode"
+    t.index ["barcode"], name: "index_tubes_on_barcode"
+    t.index ["plate_barcode"], name: "index_tubes_on_plate_barcode"
+  end
+
   create_table "wells", primary_key: ["row", "column"], force: :cascade do |t|
     t.integer "row"
     t.string "column"
@@ -33,5 +42,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_03_003534) do
   end
 
   add_foreign_key "plates", "barcodes", column: "plate_barcode", primary_key: "barcode"
+  add_foreign_key "tubes", "barcodes", column: "tube_barcode", primary_key: "barcode"
+  add_foreign_key "tubes", "plates", column: "plate_barcode", primary_key: "plate_barcode"
   add_foreign_key "wells", "plates", column: "plate_barcode", primary_key: "plate_barcode"
 end
