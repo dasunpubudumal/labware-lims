@@ -1,0 +1,2 @@
+class SampleTransferHistory < ApplicationRecord
+end
