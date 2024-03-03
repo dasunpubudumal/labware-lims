@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Models the well entity
 class Well < ApplicationRecord
-  belongs_to  :plate, foreign_key: 'plate_barcode'
+  belongs_to :plate, foreign_key: 'plate_barcode'
 end

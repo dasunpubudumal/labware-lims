@@ -1,0 +1,12 @@
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'bin/*'
+    - 'db/schema.rb'
+    - 'db/migrate/*'
+    - 'db/seeds.rb'
+    - 'db/structure.sql'
+    - 'config/*'
+    - 'lib/tasks/*'
+    - 'public/*'
+    - 'test/*'
