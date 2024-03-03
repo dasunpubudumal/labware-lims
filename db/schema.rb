@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_03_094318) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_03_114916) do
   create_table "barcodes", primary_key: "barcode", id: :string, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -54,13 +54,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_03_094318) do
     t.index ["tube_barcode"], name: "index_tubes_on_tube_barcode"
   end
 
-  create_table "wells", primary_key: ["row", "column"], force: :cascade do |t|
+  create_table "wells", primary_key: ["row", "column", "plate_barcode"], force: :cascade do |t|
     t.integer "row"
     t.string "column"
+    t.string "plate_barcode"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "plate_barcode"
-    t.index ["plate_barcode"], name: "index_wells_on_plate_barcode"
+    t.index ["plate_barcode"], name: "new_index_wells_on_plate_barcode"
   end
 
   add_foreign_key "plates", "barcodes", column: "plate_barcode", primary_key: "barcode"
