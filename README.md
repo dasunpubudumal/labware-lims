@@ -1,6 +1,6 @@
 # Labware LIMS Project
 
-![example workflow](https://github.com/dasunpubudumal/learning-ruby/actions/workflows/rubyonrails.yml/badge.svg)
+![example workflow](https://github.com/dasunpubudumal/labware-lims/actions/workflows/rubyonrails.yml/badge.svg)
 
 [![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop/rubocop)
 
