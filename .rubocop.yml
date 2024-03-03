@@ -10,3 +10,4 @@ AllCops:
     - 'lib/tasks/*'
     - 'public/*'
     - 'test/*'
+    - 'vendor/*/**'
