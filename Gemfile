@@ -13,6 +13,9 @@ gem 'sprockets-rails'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4'
 
+# Auditing for CI
+gem 'bundler-audit', '~> 0.4.0'
+
 # Robocop for lintng
 gem 'rubocop', '~> 1.61', require: false
 
