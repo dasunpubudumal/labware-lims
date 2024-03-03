@@ -39,12 +39,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_03_010521) do
   create_table "tubes", primary_key: "tube_barcode", id: :string, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "barcode"
     t.string "plate_barcode"
     t.string "sanger_sample_id"
-    t.index ["barcode"], name: "index_tubes_on_barcode"
     t.index ["plate_barcode"], name: "index_tubes_on_plate_barcode"
     t.index ["sanger_sample_id"], name: "index_tubes_on_sanger_sample_id"
+    t.index ["tube_barcode"], name: "index_tubes_on_tube_barcode"
   end
 
   create_table "wells", primary_key: ["row", "column"], force: :cascade do |t|
