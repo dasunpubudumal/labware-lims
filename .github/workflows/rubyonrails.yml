@@ -40,11 +40,9 @@ jobs:
         run: bin/rails db:migrate
       - name: Seed the database
         run: bin/rails db:seed
-      - name: Load the test database
-        run: bin/rake db:test:clone
       # Add or replace test runners here
       - name: Run tests
-        run: bin/rake
+        run: RAILS_ENV=test bin/rake
 
   lint:
     runs-on: ubuntu-latest
