@@ -70,7 +70,6 @@ customer_ids = 1..10
 # Seed Customers
 customer_ids.each do |customer_id|
   Customer.create!({
-  id: customer_id,
     customer_name: Faker::Company.name
   })
 end
