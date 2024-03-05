@@ -17,13 +17,34 @@ class SamplesController < ApplicationController
 
     # 1. Create a Barcode
     barcode = Barcode.create!(barcode: barcode)
-    # 2. Create a tube
-    tube = Tube.new(barcode: barcode)
-    tube.barcode = barcode
-    tube.save!
+    # 2. Create a customer and a sample
+    customer_and_sample = save_customer_and_sample(customer_name, sample_id)
+    # 3. Create a tube
+    tube = save_tube(barcode, customer_and_sample[:sample])
 
     Rails.logger.info("Barcode created: #{barcode}")
 
-    render json: { barcode: barcode }, status: :created
+    render json: { barcode: barcode, tube: tube, customer: customer_and_sample[:customer],
+                   sample: customer_and_sample[:sample] },
+           status: :created
+  end
+
+  private
+
+  def save_tube(barcode, sample)
+    tube = Tube.new(barcode: barcode)
+    tube.barcode = barcode
+    tube.sample = sample
+    tube.save!
+    tube
+  end
+
+  def save_customer_and_sample(customer_name, sample_id)
+    customer = Customer.new(customer_name: customer_name)
+    sample = Sample.new(sample_id: sample_id)
+    sample.customer = customer
+    customer.save!
+    sample.save!
+    { customer: customer, sample: sample }
   end
 end
