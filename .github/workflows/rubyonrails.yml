@@ -41,6 +41,8 @@ jobs:
       - name: Seed the database
         run: bin/rails db:seed
       # Add or replace test runners here
+      - name: Set up test database
+        run: bin/rails db:test:prepare
       - name: Run tests
         run: bin/rake
 
