@@ -12,8 +12,8 @@ class AddPlateBarcodeToCompositeKey < ActiveRecord::Migration[7.1]
     add_foreign_key :new_wells, :plates, column: :plate_barcode, primary_key: :plate_barcode
 
     execute <<-SQL
-      INSERT INTO new_wells (row, column, plate_barcode, created_at, updated_at)
-      SELECT row, column, plate_barcode, created_at, updated_at
+      INSERT INTO new_wells (row, "column", plate_barcode, created_at, updated_at)
+      SELECT row, "column", plate_barcode, created_at, updated_at
       FROM wells
     SQL
 

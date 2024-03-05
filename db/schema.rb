@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_03_114916) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_05_102807) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "barcodes", primary_key: "barcode", id: :string, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -36,7 +39,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_03_114916) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "samples", primary_key: "sanger_sample_id", id: :string, force: :cascade do |t|
+  create_table "samples", primary_key: "sanger_sample_id", id: :string, default: -> { "nextval('sanger_sample_id_seq'::regclass)" }, force: :cascade do |t|
     t.string "sample_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -55,18 +58,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_03_114916) do
   end
 
   create_table "wells", primary_key: ["row", "column", "plate_barcode"], force: :cascade do |t|
-    t.integer "row"
-    t.string "column"
-    t.string "plate_barcode"
+    t.integer "row", null: false
+    t.string "column", null: false
+    t.string "plate_barcode", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["plate_barcode"], name: "new_index_wells_on_plate_barcode"
   end
 
-  add_foreign_key "plates", "barcodes", column: "plate_barcode", primary_key: "barcode"
-  add_foreign_key "samples", "customers"
-  add_foreign_key "tubes", "barcodes", column: "tube_barcode", primary_key: "barcode"
-  add_foreign_key "tubes", "plates", column: "plate_barcode", primary_key: "plate_barcode"
-  add_foreign_key "tubes", "samples", column: "sanger_sample_id", primary_key: "sanger_sample_id"
+  add_foreign_key "plates", "barcodes", column: "plate_barcode", primary_key: "barcode", name: "plate_barcode"
+  add_foreign_key "samples", "customers", name: "customer_id"
+  add_foreign_key "tubes", "barcodes", column: "tube_barcode", primary_key: "barcode", name: "tube_barcode"
+  add_foreign_key "tubes", "plates", column: "plate_barcode", primary_key: "plate_barcode", name: "plate_barcode"
+  add_foreign_key "tubes", "samples", column: "sanger_sample_id", primary_key: "sanger_sample_id", name: "sanger_sample_id"
   add_foreign_key "wells", "plates", column: "plate_barcode", primary_key: "plate_barcode"
 end
