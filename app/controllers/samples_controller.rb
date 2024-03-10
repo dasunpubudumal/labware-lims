@@ -13,6 +13,12 @@ class SamplesController < ApplicationController
     render 'samples/create', status: :ok
   end
 
+  def delete
+    sanger_sample_id = params[:sanger_sample_id]
+    Sample.find(sanger_sample_id).destroy
+    redirect_to :root
+  end
+
   def show
     @sample = Sample.find_by!(sanger_sample_id: params[:sanger_sample_id])
     @customer = Customer.find_by!(id: @sample.customer_id)

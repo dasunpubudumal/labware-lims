@@ -12,7 +12,7 @@
       <tr>
         <td><%= sample.sanger_sample_id %></td>
         <td><%= sample.customer.customer_name %></td>
-        <td align="center"><button class="btn btn-danger">Delete</button></td>
+        <td align="center"><%= button_to "Delete",  "/samples/delete/#{sample.sanger_sample_id}", { :class=>"btn btn-danger", :method => :delete } %></td>
       </tr>
     <% end %>
     </tbody>

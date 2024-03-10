@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get '/samples/new', to: 'samples#new'
   post '/samples/new', to: 'samples#create'
   get '/samples/:sanger_sample_id', to: 'samples#show'
+  delete '/samples/delete/:sanger_sample_id', to: 'samples#delete'
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
