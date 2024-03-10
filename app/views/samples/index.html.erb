@@ -4,6 +4,7 @@
     <tr>
       <td>Sanger Sample ID</td>
       <td>Customer Name</td>
+      <td></td>
     </tr>
     </thead>
     <tbody>
@@ -11,6 +12,7 @@
       <tr>
         <td><%= sample.sanger_sample_id %></td>
         <td><%= sample.customer.customer_name %></td>
+        <td align="center"><button class="btn btn-danger">Delete</button></td>
       </tr>
     <% end %>
     </tbody>
