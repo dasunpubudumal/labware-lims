@@ -1,8 +1,22 @@
-<h1>Sample ID: <%= @sample.sample_id %></h1>
-<p>
-  <strong>Sanger Sample ID:</strong>
-  <%= @sample.sanger_sample_id %>
-  <br />
-  <strong>Customer Name:</strong>
-  <%= @customer.customer_name %>
-</p>
+<div class="container" align="center">
+  <h1>Sample ID: <%= @sample.sample_id %></h1>
+</div>
+
+<div class="container">
+  <table class="table">
+    <thead class="table-dark">
+    <tr>
+      <td>Sanger Sample ID</td>
+      <td>Customer Name</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td><%= @sample.sanger_sample_id %></td>
+      <td><%= @customer.customer_name %></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+

@@ -1,0 +1,19 @@
+<div class="container">
+  <table class="table table-responsive" id="samples-table">
+    <thead class="table-dark">
+    <tr>
+      <td>Sanger Sample ID</td>
+      <td>Customer Name</td>
+    </tr>
+    </thead>
+    <tbody>
+    <% @samples.each do |sample| %>
+      <tr>
+        <td><%= sample.sanger_sample_id %></td>
+        <td><%= sample.customer.customer_name %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <%= will_paginate @samples, renderer: BootstrapPagination::Rails %>
+</div>

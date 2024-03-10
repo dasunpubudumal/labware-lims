@@ -7,6 +7,8 @@ ruby '3.0.6'
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.1.3', '>= 7.1.3.2'
 
+gem 'will_paginate-bootstrap'
+
 gem 'bootstrap', '~> 5.0'
 gem 'sassc-rails'
 

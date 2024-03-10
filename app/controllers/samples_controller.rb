@@ -4,6 +4,11 @@
 class SamplesController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create]
 
+  def index
+    @samples = Sample.paginate(page: params[:page], per_page: 10)
+    render 'samples/index', status: :ok
+  end
+
   def new
     render 'samples/create', status: :ok
   end

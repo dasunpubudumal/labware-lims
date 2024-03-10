@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
+  root "samples#index"
+
+  get '/samples/index', to: "samples#index"
   get '/samples/new', to: 'samples#new'
   post '/samples/new', to: 'samples#create'
   get '/samples/:sanger_sample_id', to: 'samples#show'
