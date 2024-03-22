@@ -10,20 +10,54 @@
 #
 # Note: Please use the seeds only for development and test setups
 
-# Seed barcodes
+# Seed data for the application
+# The following sequence of steps is followed to seed the database:
+# 1. Destroy all existing records in the database
+# 2. Seed customers
+# 3. Seed samples
+# 4. Seed barcodes
+# 5. Seed plates
+# 6. Seed wells
+# 7. Seed tubes
 
 WELL_COUNT = 96
 
 ROWS = 1..12
 COLS = 'A'..'H'
 
-Plate.destroy_all
 Well.destroy_all
+Plate.destroy_all
 Sample.destroy_all
 Tube.destroy_all
 Barcode.destroy_all
 Customer.destroy_all
 
+customer_ids = 1..10
+
+# Seed Customers
+customer_ids.each do |_|
+  Customer.create!({
+                     customer_name: Faker::Company.name
+                   })
+end
+
+Rails.logger.info "Seeding samples"
+
+samples = []
+
+# Seed Samples
+customer_ids.each do |customer_id|
+  Rails.logger.info("Customer ID: #{customer_id}")
+  sample = Sample.create!({
+                            sanger_sample_id: Faker::Barcode.ean(8),
+                            sample_id: Faker::Barcode.ean(8),
+                            customer_id: customer_id
+                          })
+  Rails.logger.info("Saved Sample ID: #{sample.sanger_sample_id}")
+  samples.push sample
+end
+
+# Seed Barcodes
 seed_barcodes = []
 
 10.times do |i|
@@ -34,6 +68,7 @@ seed_barcodes.each do |barcode|
   Barcode.create!({barcode: barcode})
 end
 
+# Seed Plates
 seed_plates = []
 
 # Seed plates
@@ -42,45 +77,28 @@ seed_barcodes.each do |barcode|
   seed_plates.push(plate)
 end
 
+# Seed tubes
 tube_barcodes = []
+
+Rails.logger.info "Seeding tubes"
 
 # Seed wells & tubes
 seed_plates.each do |plate|
-    ROWS.each do |row|
-      COLS.each do |col|
-        Well.create!({
-          plate_barcode: plate.plate_barcode,
-          row: row,
-          column: col
-        })
-        tube_barcode = "T-#{Faker::Barcode.ean(8)}"
-        tube_barcodes.push(tube_barcode)
-        Barcode.create!({barcode: tube_barcode})
-        Tube.create!({
-          plate_barcode: plate.plate_barcode,
-          tube_barcode: tube_barcode,
-        })
-      end
-  end
-end
-
-
-customer_ids = 1..10
-
-# Seed Customers
-customer_ids.each do |customer_id|
-  Customer.create!({
-    customer_name: Faker::Company.name
-  })
-end
-
-# Seed Samples
-customer_ids.each do |customer_id|
-  tube_barcodes.each_slice(10) do |tube_barcode_group|
-    Sample.create!({
-      sanger_sample_id: Faker::Barcode.ean(8),
-      sample_id: Faker::Barcode.ean(8),
-      customer_id: customer_id
-    })
+  ROWS.each do |row|
+    COLS.each do |col|
+      Well.create!({
+                     plate_barcode: plate.plate_barcode,
+                     row: row,
+                     column: col
+                   })
+      tube_barcode = "T-#{Faker::Barcode.ean(8)}"
+      tube_barcodes.push(tube_barcode)
+      Barcode.create!({barcode: tube_barcode})
+      Tube.create!({
+                     plate_barcode: plate.plate_barcode,
+                     tube_barcode: tube_barcode,
+                     sample: samples.sample
+                   })
+    end
   end
 end
