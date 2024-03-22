@@ -5,6 +5,7 @@
       <td>Sanger Sample ID</td>
       <td>Customer Name</td>
       <td></td>
+      <td></td>
     </tr>
     </thead>
     <tbody>
@@ -12,6 +13,7 @@
       <tr>
         <td><%= sample.sanger_sample_id %></td>
         <td><%= sample.customer.customer_name %></td>
+        <td align="center"><%= button_to "Show", "/samples/#{sample.sanger_sample_id}", { :class=>"btn btn-primary", :method => :get } %></td>
         <td align="center"><%= button_to "Delete",  "/samples/delete/#{sample.sanger_sample_id}", { :class=>"btn btn-danger", :method => :delete } %></td>
       </tr>
     <% end %>

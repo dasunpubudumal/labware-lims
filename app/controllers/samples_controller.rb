@@ -15,6 +15,7 @@ class SamplesController < ApplicationController
 
   def delete
     sanger_sample_id = params[:sanger_sample_id]
+    Tube.where(sanger_sample_id: sanger_sample_id).delete_all
     Sample.find(sanger_sample_id).destroy
     redirect_to :root
   end
